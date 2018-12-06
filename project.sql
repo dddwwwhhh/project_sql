@@ -12,8 +12,9 @@ DROP TABLE Warehouse;
 
 
 CREATE TABLE Department(
-DepartmentName VARCHAR2(20) CONSTRAINT DepartmentName_UNNN UNIQUE NOT NULL,
-DepartmentID Char(6) CONSTRAINT DepartmentID_pk PRIMARY KEY
+DepartmentID Char(6) CONSTRAINT DepartmentID_pk PRIMARY KEY ,
+DepartmentName VARCHAR2(20) CONSTRAINT DepartmentName_UNNN UNIQUE NOT NULL
+
 );
 
 CREATE TABLE Employee(
@@ -24,20 +25,7 @@ FirstName VARCHAR2(50) CONSTRAINT FirstName_NN NOT NULL,
 Salary NUMBER(8,2)  DEFAULT 0,
 Brithday Date,
 ManagerID char(6) CONSTRAINT Manager_RE REFERENCES Employee(EmployeeID),
-DeparmentID VARCHAR2(20) CONSTRAINT DepartmentID_RE REFERENCES Department(DepartmentID)
-);
-
-
-CREATE TABLE Sales(
-ContactID CHAR(6) CONSTRAINT ContactID_pk PRIMARY KEY,
-SalesEmployee CHAR(6) CONSTRAINT SalesEmployee_Sales_RE REFERENCES Employee(EmployeeID) NOT NULL,
-VIN CHAR(17) CONSTRAINT  VIN_Sales_RE REFERENCES Car(VIN) NOT NULL UNIQUE,
-InsuranceID CHAR(12) CONSTRAINT InsuranceNumber_UNNN REFERENCES Insurance(InsuranceID) UNIQUE NOT NULL,
-Price Number(8,2) CONSTRAINT Price_NN NOT NULL ,
-SalesDate Date Default SYSDATE,
-CustomerID Char(20) CONSTRAINT  CustomerID_contract_RE REFERENCES Customer(CustomerID),
-EmployeeID char(6) CONSTRAINT Employee_Contract_RE REFERENCES Empolyee(EmployeeID)
-
+DeparmentID Char(6) CONSTRAINT DepartmentID_RE REFERENCES Department(DepartmentID) UNIQUE NOT NULL
 );
 
 
@@ -54,6 +42,14 @@ LastName VARCHAR2(50),
 FirstName VARCHAR2(50)
 );
 
+CREATE TABLE Warehouse(
+WarehouseID CHAR(8) CONSTRAINT WarehouseID_pk PRIMARY KEY,
+Location VARCHAR2(50),
+City VARCHAR2(20),
+State VARCHAR2(15),
+ZIPcode Char(5)
+);
+
 CREATE TABLE Car(
 VIN CHAR(17) CONSTRAINT VIN_pk PRIMARY KEY,
 WarehouseID CHAR(8) CONSTRAINT WarehouseID_RE REFERENCES Warehouse(WarehouseID),
@@ -65,13 +61,7 @@ Color VARCHAR2(20),
 Feature VARCHAR2(100)
 );
 
-CREATE TABLE Warehouse(
-WarehouseID CHAR(8) CONSTRAINT WarehouseID_pk PRIMARY KEY,
-Location VARCHAR2(50),
-City VARCHAR2(20),
-State VARCHAR2(15),
-ZIPcode Char(5)
-);
+
 
 CREATE TABLE Insurance(
 InsuranceID char(12) CONSTRAINT InsuranceID_pk PRIMARY KEY,
@@ -83,11 +73,20 @@ CREATE TABLE Repair(
 ServiceID Char(10) CONSTRAINT ServiceID_pk PRIMARY KEY,
 VIN CHAR(17) CONSTRAINT VIN_Repair_RE REFERENCES Car(VIN),
 PartNumeber Char(10),
-PartsPrice NUMBER(7,2)CONSTRAINT partsprice_NN DEFAULT 0 NOT NULL,
-LaberCost NUMBER(7,2)CONSTRAINT LaberCost_NN DEFAULT 0 NOT NULL,
-SELECT
-   PartsPrice,
+PartsPrice NUMBER(7,2)CONSTRAINT partsprice_NN NOT NULL DEFAULT 0 ,
+LaberCost NUMBER(7,2)CONSTRAINT LaberCost_NN NOT NULL DEFAULT 0 ,
+(SELECT
+   (PartsPrice,
    LaberCost,
-   (PartsPrice+LaberCost) as 'TotalCost'
-FROM Insurance
+   (PartsPrice+LaberCost) as 'TotalCost')
+FROM Insurance)
+);
+CREATE TABLE Sales(
+ContactID CHAR(6) CONSTRAINT ContactID_pk PRIMARY KEY,
+SalesEmployee CHAR(6) CONSTRAINT SalesEmployee_Sales_RE REFERENCES Employee(EmployeeID) NOT NULL,
+VIN CHAR(17) CONSTRAINT  VIN_Sales_RE REFERENCES Car(VIN) NOT NULL UNIQUE,
+InsuranceID CHAR(12) CONSTRAINT InsuranceNumber_UNNN REFERENCES Insurance(InsuranceID) UNIQUE NOT NULL,
+Price Number(8,2) CONSTRAINT Price_NN NOT NULL ,
+SalesDate Date Default SYSDATE,
+CustomerID Char(20) CONSTRAINT  CustomerID_contract_RE REFERENCES Customer(CustomerID)
 );
