@@ -67,8 +67,8 @@ Feature VARCHAR2(100)
 
 
 CREATE TABLE Insurance(
-InsuranceID char(12) CONSTRAINT InsuranceID_pk PRIMARY KEY,
-Company Char(30) CONSTRAINT Company_NN NOT NULL,
+InsuranceID char(6) CONSTRAINT InsuranceID_pk PRIMARY KEY,
+Company VARCHAR2(30) CONSTRAINT Company_NN NOT NULL,
 InsurancePolicyID Char(20) CONSTRAINT InsurancePolicyID_NN NOT NULL
 );
 
@@ -114,15 +114,22 @@ INSERT ALL
    INTO Warehouse (WarehouseID,WarehouseName,City,State,ZIPcode) Values (10000001,'Smith Warehouse','Washington','DC',20521)
    INTO Warehouse (WarehouseID,WarehouseName,City,State,ZIPcode) Values (10000002,'Winner Warehouse','Dover','DE',19700)
    INTO Warehouse (WarehouseID,WarehouseName,City,State,ZIPcode) Values (10000003,'Smith Warehouse','NYC','NY',10001)
-
-
-
-
-   
+   INTO Car (VIN, WarehouseID,MODEL,MAKER,YEAR,Miles,Color,Feature) Values ('1B7GG23Y4RW149187',10000001,'340i','BMW',2017,34,'Black','AC, DCT, AWD')
+   INTO Car (VIN, WarehouseID,MODEL,MAKER,YEAR,Miles,Color,Feature) Values ('JTHBF5C24B5151848',10000001,'P100D','TESLA',2018,20,'Black','Rmote, APP, Autopliot')
+   INTO Car (VIN, WarehouseID,MODEL,MAKER,YEAR,Miles,Color,Feature) Values ('2FZACFDC04AN08839',10000002,'RS7','Audi',2010,60,'Black','quattro')
+   INTO Car (VIN, WarehouseID,MODEL,MAKER,YEAR,Miles,Color,Feature) Values ('3GNEK12T85G291533',10000002,'CC','Volkswagen',2012,86,'Black','DSG')
+   INTO Car (VIN, WarehouseID,MODEL,MAKER,YEAR,Miles,Color,Feature) Values ('WA1LFAFP3FA041029',10000003,'One:1','Koenigsegg',2016,6,'Black Orange','1350HP, Carbon Fiber Body')
+   INTO Car (VIN, WarehouseID,MODEL,MAKER,YEAR,Miles,Color,Feature) Values ('WDBLK70G63T132064',10000003,'Macan Turbo','Prosche',2018,15,'Black','Air Suspension, AWD')
+   INTO Insurance(InsuranceID,Company,InsurancePolicyID) Values (800001,'State Fram',18632481)
+   INTO Insurance(InsuranceID,Company,InsurancePolicyID) Values (800002,'State Fram',45625178)
+   INTO Insurance(InsuranceID,Company,InsurancePolicyID) Values (800003,'GEICO',4562785)
+   INTO Insurance(InsuranceID,Company,InsurancePolicyID) Values (800004,'Progressive',42126748924)
+   INTO Insurance(InsuranceID,Company,InsurancePolicyID) Values (800005,'Liberty Mutual',451567486)
+   INTO Repair (ServiceID,VIN,PartNumeber,PartsPrice,LaberCost) Values(7000000001,'1B7GG23Y4RW149187',1542639564,300,1000)
+   INTO Repair (ServiceID,VIN,PartNumeber,PartsPrice,LaberCost) Values(7000000002,'2FZACFDC04AN08839',1561321843,1000,2000)
+   INTO Repair (ServiceID,VIN,PartNumeber,PartsPrice,LaberCost) Values(7000000003,'3GNEK12T85G291533',8743218431,500,200)
 SELECT 1 FROM DUAL;
 
-
-SELECT * FROM warehouse;
 
 SELECT * FROM customer;
 --SELECT * FROM employee;
