@@ -16,7 +16,7 @@ DROP TABLE Warehouse;
 
 CREATE TABLE Department(
 DepartmentID Char(6) CONSTRAINT DepartmentID_pk PRIMARY KEY ,
-DepartmentName VARCHAR2(20) CONSTRAINT DepartmentName_UNNN UNIQUE NOT NULL
+DepartmentName VARCHAR2(50) CONSTRAINT DepartmentName_UNNN UNIQUE NOT NULL
 
 );
 
@@ -28,7 +28,7 @@ FirstName VARCHAR2(50) CONSTRAINT FirstName_NN NOT NULL,
 Salary NUMBER(8,2)  DEFAULT 0,
 Brithday Date,
 ManagerID char(6) CONSTRAINT Manager_RE REFERENCES Employee(EmployeeID),
-DeparmentID Char(6) CONSTRAINT DepartmentID_RE REFERENCES Department(DepartmentID) UNIQUE NOT NULL
+DeparmentID Char(6) CONSTRAINT DepartmentID_RE REFERENCES Department(DepartmentID) 
 );
 
 
@@ -93,3 +93,26 @@ Price Number(8,2) CONSTRAINT Price_NN NOT NULL ,
 SalesDate Date Default SYSDATE,
 CustomerID Char(20) CONSTRAINT  CustomerID_contract_RE REFERENCES Customer(CustomerID)
 );
+
+INSERT ALL
+   INTO Department (DepartmentID, DepartmentName) VALUES (123456, 'Sales_Department')
+   INTO Department (DepartmentID, DepartmentName) VALUES (179652, 'Service_Department')
+   INTO Department (DepartmentID, DepartmentName) VALUES (122112, 'Accounting_Department')
+   INTO Department (DepartmentID, DepartmentName) VALUES (122133, 'Insurance_Department')
+   INTO Employee (SSN, EmployeeID , LastName , FirstName , Salary  , Brithday, ManagerID , DeparmentID )VALUES (123456789, 223456,'Jake', 'Tom',13000.00, TO_DATE('12-01-1988','MM-DD-YYYY'),NULL,NULL)
+   INTO Employee (SSN, EmployeeID , LastName , FirstName , Salary  , Brithday, ManagerID , DeparmentID )VALUES (135431862, 223457,'Grace','Butter',3000, TO_DATE('11-01-1993','MM-DD-YYYY'),223456,122112)
+   INTO Employee (SSN, EmployeeID , LastName , FirstName , Salary  , Brithday, ManagerID , DeparmentID )VALUES (111111111, 211112,'Heghington','George',5000, TO_DATE('04-01-1993','MM-DD-YYYY'),223456,123456)
+   INTO Employee (SSN, EmployeeID , LastName , FirstName , Salary  , Brithday, ManagerID , DeparmentID )VALUES (222222222, 211113,'Eden','Barthe',3000, TO_DATE('07-08-1994','MM-DD-YYYY'),223456,123456)
+   INTO Employee (SSN, EmployeeID , LastName , FirstName , Salary  , Brithday, ManagerID , DeparmentID )VALUES (333333333, 211146,'Ludge','Jarard',7000, TO_DATE('01-01-1983','MM-DD-YYYY'),223456,NULL)
+   INTO Employee (SSN, EmployeeID , LastName , FirstName , Salary  , Brithday, ManagerID , DeparmentID )VALUES (444444444, 211176,'Maire','Lyonell',4000, TO_DATE('12-30-1985','MM-DD-YYYY'),211146,179652)
+   INTO Employee (SSN, EmployeeID , LastName , FirstName , Salary  , Brithday, ManagerID , DeparmentID )VALUES (555555555, 211185,'Maire','Peter',3000, TO_DATE('10-12-1996','MM-DD-YYYY'),211146,179652)
+   INTO Employee (SSN, EmployeeID , LastName , FirstName , Salary  , Brithday, ManagerID , DeparmentID )VALUES (666666666, 211187,'Maire','Peter',3000, TO_DATE('10-12-1996','MM-DD-YYYY'),223456,122133)
+   
+   
+   
+SELECT 1 FROM DUAL;
+
+
+
+SELECT * FROM employee;
+Select * from Department;
