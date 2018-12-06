@@ -88,10 +88,10 @@ CREATE TABLE Sales(
 ContactID CHAR(6) CONSTRAINT ContactID_pk PRIMARY KEY,
 SalesEmployee CHAR(6) CONSTRAINT SalesEmployee_Sales_RE REFERENCES Employee(EmployeeID) NOT NULL,
 VIN CHAR(17) CONSTRAINT  VIN_Sales_RE REFERENCES Car(VIN) NOT NULL UNIQUE,
-InsuranceID CHAR(12) CONSTRAINT InsuranceNumber_UNNN REFERENCES Insurance(InsuranceID) UNIQUE NOT NULL,
-Price Number(8,2) CONSTRAINT Price_NN NOT NULL ,
+InsuranceID CHAR(6) CONSTRAINT InsuranceNumber_UNNN REFERENCES Insurance(InsuranceID) UNIQUE NOT NULL,
+Price Number(9,2) CONSTRAINT Price_NN NOT NULL ,
 SalesDate Date Default SYSDATE,
-CustomerID Char(20) CONSTRAINT  CustomerID_contract_RE REFERENCES Customer(CustomerID)
+CustomerID Char(4) CONSTRAINT  CustomerID_contract_RE REFERENCES Customer(CustomerID)
 );
 
 INSERT ALL
@@ -121,16 +121,19 @@ INSERT ALL
    INTO Car (VIN, WarehouseID,MODEL,MAKER,YEAR,Miles,Color,Feature) Values ('WA1LFAFP3FA041029',10000003,'One:1','Koenigsegg',2016,6,'Black Orange','1350HP, Carbon Fiber Body')
    INTO Car (VIN, WarehouseID,MODEL,MAKER,YEAR,Miles,Color,Feature) Values ('WDBLK70G63T132064',10000003,'Macan Turbo','Prosche',2018,15,'Black','Air Suspension, AWD')
    INTO Insurance(InsuranceID,Company,InsurancePolicyID) Values (800001,'State Fram',18632481)
-   INTO Insurance(InsuranceID,Company,InsurancePolicyID) Values (800002,'State Fram',45625178)
    INTO Insurance(InsuranceID,Company,InsurancePolicyID) Values (800003,'GEICO',4562785)
    INTO Insurance(InsuranceID,Company,InsurancePolicyID) Values (800004,'Progressive',42126748924)
    INTO Insurance(InsuranceID,Company,InsurancePolicyID) Values (800005,'Liberty Mutual',451567486)
    INTO Repair (ServiceID,VIN,PartNumeber,PartsPrice,LaberCost) Values(7000000001,'1B7GG23Y4RW149187',1542639564,300,1000)
    INTO Repair (ServiceID,VIN,PartNumeber,PartsPrice,LaberCost) Values(7000000002,'2FZACFDC04AN08839',1561321843,1000,2000)
    INTO Repair (ServiceID,VIN,PartNumeber,PartsPrice,LaberCost) Values(7000000003,'3GNEK12T85G291533',8743218431,500,200)
+   INTO Sales (ContactID,SalesEmployee,VIN,InsuranceID,price,SalesDate,customerid) Values (600001,211112,'1B7GG23Y4RW149187',800001,56000,TO_DATE('11-01-2018','MM-DD-YYYY'),1234)
+   INTO Sales (ContactID,SalesEmployee,VIN,InsuranceID,price,SalesDate,customerid) Values (600002,211112,'3GNEK12T85G291533',800003,32000,TO_DATE('10-30-2018','MM-DD-YYYY'),1111)
+   INTO Sales (ContactID,SalesEmployee,VIN,InsuranceID,price,SalesDate,customerid) Values (600003,211113,'WA1LFAFP3FA041029',800004,1200000,TO_DATE('03-01-2018','MM-DD-YYYY'),2222)
+   INTO Sales (ContactID,SalesEmployee,VIN,InsuranceID,price,SalesDate,customerid) Values (600004,211113,'WDBLK70G63T132064',800005,84000,TO_DATE('02-28-2018','MM-DD-YYYY'),4444)
 SELECT 1 FROM DUAL;
 
 
-SELECT * FROM customer;
+SELECT * FROM Sales;
 --SELECT * FROM employee;
 --Select * from Department;
