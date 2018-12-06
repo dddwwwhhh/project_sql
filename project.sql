@@ -1,6 +1,3 @@
-ALTER TABLE Manager
-DROP CONSTRAINT EmployeeID_RE ;
-
 DROP TABLE Employee;
 DROP TABLE Department;
 DROP TABLE Sales;
@@ -73,13 +70,13 @@ CREATE TABLE Repair(
 ServiceID Char(10) CONSTRAINT ServiceID_pk PRIMARY KEY,
 VIN CHAR(17) CONSTRAINT VIN_Repair_RE REFERENCES Car(VIN),
 PartNumeber Char(10),
-PartsPrice NUMBER(7,2)CONSTRAINT partsprice_NN NOT NULL DEFAULT 0 ,
-LaberCost NUMBER(7,2)CONSTRAINT LaberCost_NN NOT NULL DEFAULT 0 ,
+PartsPrice NUMBER(7,2) DEFAULT 0 CONSTRAINT partsprice_NN NOT NULL  ,
+LaberCost NUMBER(7,2) DEFAULT 0 CONSTRAINT LaberCost_NN NOT NULL  ,
 (SELECT
    (PartsPrice,
    LaberCost,
-   (PartsPrice+LaberCost) as 'TotalCost')
-FROM Insurance)
+   (PartsPrice+LaberCost) as TotalCost)
+FROM Repair)
 );
 CREATE TABLE Sales(
 ContactID CHAR(6) CONSTRAINT ContactID_pk PRIMARY KEY,
