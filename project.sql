@@ -144,16 +144,18 @@ SELECT 1 FROM DUAL;
 DELETE From employee Where employeeid=211185;
 
 UPdate employee Set salary=6000 Where employeeid = 211176;
---display the result for comparsion.
+--display the result for comparison.
 SELECT * FROM employee;
 
 -- Using alter to add new column, then update and calculate the total cost for each car repair. 
+-- After table created, we may want to get more information from table and save it 
 ALTER TABLE repair
 ADD TotalCost Number(7,2);
 UPdate repair Set TotalCost=(partsprice + laborcost)  ;
 Select * from repair;
 
 -- Display the cost to repair for each brand and model by using view.
+-- This could useful for getting cost of each brand
 Create or replace View Car_repair_cost_wiht_Brand AS
 Select c.maker as maker, c.model as model, r.Totalcost as repaircost
 from car c, repair r
@@ -161,30 +163,35 @@ where c.vin = r.vin;
 Select * from Car_repair_cost_wiht_Brand;
 
 
--- Using view to display total salary that the company paied.
+-- Using view to display total salary that the company paid.
+-- It can help company to know their cost. 
 Create or replace View Total_salary AS
 select sum(employee.salary) as total_salary
 from employee;
 Select * from Total_salary;
 
 -- Display all income from repair and selling cars.
+-- This can useful for taxes  purpose 
 Create or replace View income AS
 select sum(s.price) as total_sales, sum (r.totalcost) as total_repairincome
 from sales s, repair r ;
 Select * from income;
 
 -- Using other two Views information to get Net-income.
+-- Company may want to track their revenue
 Create or replace View Net_income AS
 select (i.total_sales + i.total_repairincome - s.total_salary) as Netincome
 from Total_salay s, income i ;
 Select * from Net_income;
 
 -- Display salary and employee in descending order.  
+-- Salary situation can help owner to determine if need to increase salary
 Select LastName, FirstName, Salary 
 from employee 
 order by Salary DESC, lastname;
 
 -- Shows all sold car with salesman in descending order by price. 
+-- Helping to rank who is the best salesman. And this can help owner decide to fire or increase salary for employee
 Select s.price, c.Maker, c.model , e.LastName, e.FirstName 
 from car c, employee e, sales s 
 where s.vin = c.vin and e.employeeid = s.SalesEmployee 
