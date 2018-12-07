@@ -78,11 +78,7 @@ VIN CHAR(17) CONSTRAINT VIN_Repair_RE REFERENCES Car(VIN),
 PartNumeber Char(10),
 PartsPrice NUMBER(7,2) DEFAULT 0 CONSTRAINT partsprice_NN NOT NULL  ,
 LaberCost NUMBER(7,2) DEFAULT 0 CONSTRAINT LaberCost_NN NOT NULL
--- (SELECT
---    (PartsPrice,
---    LaberCost,
---    (PartsPrice+LaberCost) as TotalCost)
--- FROM Repair)
+
 );
 CREATE TABLE Sales(
 ContactID CHAR(6) CONSTRAINT ContactID_pk PRIMARY KEY,
@@ -133,10 +129,46 @@ INSERT ALL
    INTO Sales (ContactID,SalesEmployee,VIN,InsuranceID,price,SalesDate,customerid) Values (600004,211113,'WDBLK70G63T132064',800005,84000,TO_DATE('02-28-2018','MM-DD-YYYY'),4444)
 SELECT 1 FROM DUAL;
 
-
+--Select * from Department;
 SELECT * FROM Sales;
 SELECT * FROM employee;
---Select * from Department;
+
 DELETE From employee Where employeeid=211185;
+
 UPdate employee Set salary=6000 Where employeeid = 211176;
+
 SELECT * FROM employee;
+
+
+ALTER TABLE repair
+ADD TotalCost Number(7,2);
+
+UPdate repair Set TotalCost=(partsprice + labercost)  ;
+
+Select * from repair;
+
+Create or replace View Car_repair_cost_wiht_Brand AS
+Select c.maker as maker, c.model as model, r.Totalcost as repaircost
+from car c, repair r
+where c.vin = r.vin;
+
+Select * from Car_repair_cost_wiht_Brand;
+
+Create or replace View Total_salary AS
+select sum(employee.salary) as total_salary
+from employee;
+Select * from Total_salary;
+
+Create or replace View income AS
+select sum(s.price) as total_sales, sum (r.totalcost) as total_repairincome
+from sales s, repair r ;
+Select * from income;
+
+Create or replace View Net_income AS
+select (i.total_sales + i.total_repairincome - s.total_salary) as Netincome
+from Total_salay s, income i ;
+Select * from Net_income;
+
+Select LastName, FirstName, Salary from employee order by Salary DESC, lastname;
+
+Select s.price, c.Maker, c.model , e.LastName, e.FirstName from car c, employee e, sales s where s.vin = c.vin and e.employeeid = s.SalesEmployee order by s.price desc;
