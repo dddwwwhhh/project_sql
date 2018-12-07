@@ -77,7 +77,7 @@ ServiceID Char(10) CONSTRAINT ServiceID_pk PRIMARY KEY,
 VIN CHAR(17) CONSTRAINT VIN_Repair_RE REFERENCES Car(VIN),
 PartNumeber Char(10),
 PartsPrice NUMBER(7,2) DEFAULT 0 CONSTRAINT partsprice_NN NOT NULL  ,
-LaberCost NUMBER(7,2) DEFAULT 0 CONSTRAINT LaberCost_NN NOT NULL
+laborCost NUMBER(7,2) DEFAULT 0 CONSTRAINT laborCost_NN NOT NULL
 
 );
 CREATE TABLE Sales(
@@ -120,9 +120,9 @@ INSERT ALL
    INTO Insurance(InsuranceID,Company,InsurancePolicyID) Values (800003,'GEICO',4562785)
    INTO Insurance(InsuranceID,Company,InsurancePolicyID) Values (800004,'Progressive',42126748924)
    INTO Insurance(InsuranceID,Company,InsurancePolicyID) Values (800005,'Liberty Mutual',451567486)
-   INTO Repair (ServiceID,VIN,PartNumeber,PartsPrice,LaberCost) Values(7000000001,'1B7GG23Y4RW149187',1542639564,300,1000)
-   INTO Repair (ServiceID,VIN,PartNumeber,PartsPrice,LaberCost) Values(7000000002,'2FZACFDC04AN08839',1561321843,1000,2000)
-   INTO Repair (ServiceID,VIN,PartNumeber,PartsPrice,LaberCost) Values(7000000003,'3GNEK12T85G291533',8743218431,500,200)
+   INTO Repair (ServiceID,VIN,PartNumeber,PartsPrice,laborCost) Values(7000000001,'1B7GG23Y4RW149187',1542639564,300,1000)
+   INTO Repair (ServiceID,VIN,PartNumeber,PartsPrice,laborCost) Values(7000000002,'2FZACFDC04AN08839',1561321843,1000,2000)
+   INTO Repair (ServiceID,VIN,PartNumeber,PartsPrice,laborCost) Values(7000000003,'3GNEK12T85G291533',8743218431,500,200)
    INTO Sales (ContactID,SalesEmployee,VIN,InsuranceID,price,SalesDate,customerid) Values (600001,211112,'1B7GG23Y4RW149187',800001,56000,TO_DATE('11-01-2018','MM-DD-YYYY'),1234)
    INTO Sales (ContactID,SalesEmployee,VIN,InsuranceID,price,SalesDate,customerid) Values (600002,211112,'3GNEK12T85G291533',800003,32000,TO_DATE('10-30-2018','MM-DD-YYYY'),1111)
    INTO Sales (ContactID,SalesEmployee,VIN,InsuranceID,price,SalesDate,customerid) Values (600003,211113,'WA1LFAFP3FA041029',800004,1200000,TO_DATE('03-01-2018','MM-DD-YYYY'),2222)
@@ -150,7 +150,7 @@ SELECT * FROM employee;
 -- Using alter to add new column, then update and calculate the total cost for each car repair. 
 ALTER TABLE repair
 ADD TotalCost Number(7,2);
-UPdate repair Set TotalCost=(partsprice + labercost)  ;
+UPdate repair Set TotalCost=(partsprice + laborcost)  ;
 Select * from repair;
 
 -- Display the cost to repair for each brand and model by using view.
