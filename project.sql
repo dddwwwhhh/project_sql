@@ -105,8 +105,8 @@ INSERT ALL
    INTO Employee (SSN, EmployeeID , LastName , FirstName , Salary  , Brithday, ManagerID , DeparmentID )VALUES (222222222, 211113,'Eden','Barthe',3000, TO_DATE('07-08-1994','MM-DD-YYYY'),223456,123456)
    INTO Employee (SSN, EmployeeID , LastName , FirstName , Salary  , Brithday, ManagerID , DeparmentID )VALUES (333333333, 211146,'Ludge','Jarard',7000, TO_DATE('01-01-1983','MM-DD-YYYY'),223456,NULL)
    INTO Employee (SSN, EmployeeID , LastName , FirstName , Salary  , Brithday, ManagerID , DeparmentID )VALUES (444444444, 211176,'Maire','Lyonell',4000, TO_DATE('12-30-1985','MM-DD-YYYY'),211146,179652)
-   INTO Employee (SSN, EmployeeID , LastName , FirstName , Salary  , Brithday, ManagerID , DeparmentID )VALUES (555555555, 211185,'Maire','Peter',3000, TO_DATE('10-12-1996','MM-DD-YYYY'),211146,179652)
-   INTO Employee (SSN, EmployeeID , LastName , FirstName , Salary  , Brithday, ManagerID , DeparmentID )VALUES (666666666, 211187,'Maire','Peter',3000, TO_DATE('10-12-1996','MM-DD-YYYY'),223456,122133)
+   INTO Employee (SSN, EmployeeID , LastName , FirstName , Salary  , Brithday, ManagerID , DeparmentID )VALUES (555555555, 211185,'Buck','Peter',3000, TO_DATE('10-12-1996','MM-DD-YYYY'),211146,179652)
+   INTO Employee (SSN, EmployeeID , LastName , FirstName , Salary  , Brithday, ManagerID , DeparmentID )VALUES (666666666, 211187,'Carter','Stevne',3000, TO_DATE('10-12-1996','MM-DD-YYYY'),223456,122133)
    INTO customer (customerid, driverlicence, brithday, address, City, State, Phone, Zipcode, LastName,FirstName) Values (1234, 1234567890, TO_DATE('1-12-1966','MM-DD-YYYY'),'1 Main st','Newrak','New Jersey',3022221235,19997,'Ambrose','Walter')
    INTO customer (customerid, driverlicence, brithday, address, City, State, Phone, Zipcode, LastName,FirstName) Values (1111, NULL, TO_DATE('1-30-2000','MM-DD-YYYY'),'445 Mount Eden Road','Mount Eden','Auckland',1201115296,39100,'Blaixton','Bartram')
    INTO customer (customerid, driverlicence, brithday, address, City, State, Phone, Zipcode, LastName,FirstName) Values (2222, 5266314899, TO_DATE('4-30-1991','MM-DD-YYYY'),'2050 Bamako Place','Washington','DC',1873218498,20521,'Carre','Gawen')
@@ -135,5 +135,8 @@ SELECT 1 FROM DUAL;
 
 
 SELECT * FROM Sales;
---SELECT * FROM employee;
+SELECT * FROM employee;
 --Select * from Department;
+DELETE From employee Where employeeid=211185;
+UPdate employee Set salary=6000 Where employeeid = 211176;
+SELECT * FROM employee;
