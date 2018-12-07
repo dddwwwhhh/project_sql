@@ -129,46 +129,63 @@ INSERT ALL
    INTO Sales (ContactID,SalesEmployee,VIN,InsuranceID,price,SalesDate,customerid) Values (600004,211113,'WDBLK70G63T132064',800005,84000,TO_DATE('02-28-2018','MM-DD-YYYY'),4444)
 SELECT 1 FROM DUAL;
 
+--display all table:
 --Select * from Department;
-SELECT * FROM Sales;
-SELECT * FROM employee;
+--SELECT * FROM Sales;
+--SELECT * FROM employee;
+--Select * from Car;
+--Select * from sales;
+--Select * from repair;
+--Select * from warehouse;
+--Select * from insurance;
 
+-- Using Delete and Update
+-- Boss fired one employee. Since only one employee left in the department, he decied to rise the last employee salary.
 DELETE From employee Where employeeid=211185;
 
 UPdate employee Set salary=6000 Where employeeid = 211176;
-
+--display the result for comparsion.
 SELECT * FROM employee;
 
-
+-- Using alter to add new column, then update and calculate the total cost for each car repair. 
 ALTER TABLE repair
 ADD TotalCost Number(7,2);
-
 UPdate repair Set TotalCost=(partsprice + labercost)  ;
-
 Select * from repair;
 
+-- Display the cost to repair for each brand and model by using view.
 Create or replace View Car_repair_cost_wiht_Brand AS
 Select c.maker as maker, c.model as model, r.Totalcost as repaircost
 from car c, repair r
 where c.vin = r.vin;
-
 Select * from Car_repair_cost_wiht_Brand;
 
+
+-- Using view to display total salary that the company paied.
 Create or replace View Total_salary AS
 select sum(employee.salary) as total_salary
 from employee;
 Select * from Total_salary;
 
+-- Display all income from repair and selling cars.
 Create or replace View income AS
 select sum(s.price) as total_sales, sum (r.totalcost) as total_repairincome
 from sales s, repair r ;
 Select * from income;
 
+-- Using other two Views information to get Net-income.
 Create or replace View Net_income AS
 select (i.total_sales + i.total_repairincome - s.total_salary) as Netincome
 from Total_salay s, income i ;
 Select * from Net_income;
 
-Select LastName, FirstName, Salary from employee order by Salary DESC, lastname;
+-- Display salary and employee in descending order.  
+Select LastName, FirstName, Salary 
+from employee 
+order by Salary DESC, lastname;
 
-Select s.price, c.Maker, c.model , e.LastName, e.FirstName from car c, employee e, sales s where s.vin = c.vin and e.employeeid = s.SalesEmployee order by s.price desc;
+-- Shows all sold car with salesman in descending order by price. 
+Select s.price, c.Maker, c.model , e.LastName, e.FirstName 
+from car c, employee e, sales s 
+where s.vin = c.vin and e.employeeid = s.SalesEmployee 
+order by s.price desc;
